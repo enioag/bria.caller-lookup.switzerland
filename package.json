@@ -1,0 +1,24 @@
+{
+  "name": "bria.caller-lookup.switzerland",
+  "version": "1.0.0",
+  "description": "Javascript-Solution which allows you to show the name and adress of the caller. This product uses the CounterPath API but is not endorsed or certified by CounterPath.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enioag/bria.caller-lookup.switzerland.git"
+  },
+  "author": "Marco Birchler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enioag/bria.caller-lookup.switzerland/issues"
+  },
+  "homepage": "https://github.com/enioag/bria.caller-lookup.switzerland#readme"
+}
