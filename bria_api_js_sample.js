@@ -117,25 +117,26 @@ function removeRingingCall(callId) {
 
 function callActivity(callList) {
 	var html = '';
-	
+
 	for (var i = 0; i < callList.length; i++) {
 		var call = callList[i];
 		
 		if (call.participants.length == 1) {
 			participant = call.participants[0];
-		
          /* Distinguish between inbound and outbound calls by tracking the call state for 'Ringing' which imply inbound call */
          if (participant.state == ApiCallStates.properties[ApiCallStates.RINGING].text) {
+
             if (checkIfRingingCallExist(call.id) == false) {
                inboundCallsNotPopped.push(call.id);
-            } 
+				var url = 'https://tel.search.ch/?was=' + participant.number;
+				window.open(url);
+
+			}
          }
          
          if (participant.state == ApiCallStates.properties[ApiCallStates.CONNECTED].text) {
             if (checkIfRingingCallExist(call.id) == true) {
-               var url = 'http://www.google.com/search?as_q=' + participant.number;
-               window.open(url);
-               
+
                removeRingingCall(call.id);
             }
          }
@@ -186,6 +187,7 @@ function constructApiMessage(requestType, body) {
 function apiGetStatus(statusType) {
 	var content = xmlDeclarationString + '<status>\r\n <type>' + statusType + '</type>\r\n</status>';
 	var msg = constructApiMessage(ApiRequestTypes.STATUS, content);
+
 	sendMessage(msg);
 }
 
@@ -234,6 +236,8 @@ function handleStatusChangeEvent(eventType) {
  
 function handleCallStatusResponse(callStatusDoc) {
 	/* Each Call Status Response contain zero or more 'call' elements with information about each ongoing call */
+	console.log('handleCallStatusResponse called', callStatusDoc);
+
 	var calls = callStatusDoc.getElementsByTagName("call");
 	
 	/* Create an array to hold the list of calls */
@@ -330,6 +334,9 @@ function processApiMessageReceived(msg) {
 function processResponse(responseXML) {
 	/* Basic responses carry no content, so we don't need to process them */
 	/* For responses with XML data, figure out the type and distribute to sub-processing functions */
+
+	console.log('processResponse called,', responseXML);
+
 	if (responseXML.length > 0) {
 		var parser = new DOMParser();
 		var xmlDoc = parser.parseFromString(responseXML, "text/xml");
@@ -471,7 +478,13 @@ function appendToLog(data) {
 	var logField = jq('#APIMessageLog');
 	logField.val(logField.val() + data + '\n\n');
 	logField.scrollTop(logField[0].scrollHeight);
-}	
+}
+
+function appendToInfo(data) {
+	var logField = jq('#APIMessageInfo');
+	logField.val(logField.val() + data + '\n\n');
+	logField.scrollTop(logField[0].scrollHeight);
+}
 
 function clearLog() {
 	var logField = jq('#APIMessageLog');
@@ -484,4 +497,3 @@ function clearLog() {
  ****************************************************************************/
 
 window.addEventListener("load", initialize, false);
- 
