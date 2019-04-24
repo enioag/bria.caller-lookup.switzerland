@@ -1,8 +1,8 @@
 # Bria Windows Desktop Popup trigger
 
-A very basic HTML/JavaScript node app that listens for Bria API events and when a call is received it does a search for the remote party number on tel.search.ch
+A very basic HTML/JavaScript node app that listens for Bria API events and does a search for the remote party number on [tel.search.ch](https://tel.search.ch) when a call is received. 
 
-Please note that this application is based on brias own [sample](https://github.com/CounterPathAPI/BriaAPI_Java_Sample_2.0) but improved a little bit. This version can be exexuted as a node application.
+Please note that this application is based on brias own [sample](https://github.com/CounterPathAPI/BriaAPI_Java_Sample_2.0) but improved a little bit. This version can be executed as a node application.
 
 #### Installation notes
 
